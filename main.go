@@ -22,7 +22,9 @@ func main() {
 	for r.Scan() {
 		b := r.Bytes()
 		_, _ = frame.Write(b)
-		token = append(token[1:3], b...)
+		token[0] = token[1]
+		token[1] = token[2]
+		token[2] = b[0]
 		if string(token) == "\033[0" {
 			os.Stdout.WriteString("\r" + frame.String())
 			os.Stdout.Sync()
